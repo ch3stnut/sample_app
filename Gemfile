@@ -3,10 +3,6 @@ gem 'rails', '3.2.14'
 
 gem 'jquery-rails', '2.0.2'
 
-# Gems only used in development
-group :development do
-	gem 'thin'
-end
 
 group :development, :test do
 	gem 'sqlite3', '1.3.5'
