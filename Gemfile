@@ -3,6 +3,7 @@ gem 'rails', '3.2.14'
 gem 'thin'
 
 gem 'bootstrap-sass'
+gem 'bcrypt-ruby', '3.0.1'
 gem 'jquery-rails', '3.0.4'
 
 group :development, :test do
@@ -11,6 +12,10 @@ group :development, :test do
 
   gem 'childprocess', '0.3.9'
   gem 'spork', '0.9.2'
+end
+
+group :development do
+  gem 'annotate'
 end
 
 # Gems used only for assets and not required 
