@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  before_filter :signed_in_only, only: [:edit, :update, :index, :destroy]
+  before_filter :same_user_only, only: [:edit, :update]
+  before_filter :admin_user_only, only: [:destroy]
   
   def new
     @user = User.new
@@ -15,7 +18,56 @@ class UsersController < ApplicationController
       flash[:success] = "Welcome to the SampleApp, yo!"
       redirect_to @user
     else
-      render 'new'
+      render :new
     end
   end
+
+  def edit
+  end
+
+  def update
+    if @user.update_attributes(params[:user])
+      sign_in @user
+      flash[:success] = "Your profile was updated, yo!"
+      redirect_to @user
+    else
+      render :edit
+    end
+  end
+
+  def index
+    @users = User.paginate(page: params[:page])
+  end
+
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "User deleted."
+    redirect_to users_url
+  end
+
+  private
+
+    def signed_in_only
+      if !signed_in?
+        store_location
+        flash[:info] = "Please sign in to access this page."
+        redirect_to signin_url
+      end
+    end
+
+    def same_user_only
+      @user = User.find(params[:id])
+      if !current_user?(@user)
+        flash[:info] = "Hey now, that's none of your business right there."
+        redirect_to root_url
+      end
+    end
+
+    def admin_user_only
+      if !current_user.admin?
+        flash[:danger] = "Nope, you can't go here. Sorry."
+        redirect_to root_url
+      end
+    end
+
 end

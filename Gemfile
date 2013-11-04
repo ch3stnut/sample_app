@@ -1,9 +1,13 @@
 source 'https://rubygems.org'
-gem 'rails', '3.2.14'
-gem 'thin'
 
-gem 'bootstrap-sass'
+gem 'rails', '3.2.14'
+gem 'thin', '1.5.1'
+
+gem 'bootstrap-sass', '~> 3.0.0'
 gem 'bcrypt-ruby', '3.0.1'
+gem 'faker', '1.0.1'
+gem 'will_paginate', '3.0.5'
+gem 'bootstrap-will_paginate', '0.0.10'
 gem 'jquery-rails', '3.0.4'
 
 group :development, :test do
@@ -15,7 +19,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'annotate'
+  gem 'annotate', '2.5.0'
 end
 
 # Gems used only for assets and not required 
