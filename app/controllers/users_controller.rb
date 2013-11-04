@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
   before_filter :signed_in_only, only: [:edit, :update, :index, :destroy]
   before_filter :same_user_only, only: [:edit, :update]
+  before_filter :signed_out_only, only: [:new, :create]
   before_filter :admin_user_only, only: [:destroy]
+  before_filter :purple_palm_tree_protection, only: [:destroy] # reference to /s4s/
   
   def new
     @user = User.new
@@ -55,10 +57,17 @@ class UsersController < ApplicationController
       end
     end
 
+    def signed_out_only
+      if signed_in?
+        flash[:info] = "You are already signed in!"
+        redirect_to root_url
+      end
+    end
+
     def same_user_only
       @user = User.find(params[:id])
       if !current_user?(@user)
-        flash[:info] = "Hey now, that's none of your business right there."
+        flash[:warning] = "Hey now, that's none of your business right there."
         redirect_to root_url
       end
     end
@@ -67,6 +76,13 @@ class UsersController < ApplicationController
       if !current_user.admin?
         flash[:danger] = "Nope, you can't go here. Sorry."
         redirect_to root_url
+      end
+    end
+
+    def purple_palm_tree_protection
+      if current_user.admin? && current_user == User.find(params[:id])
+        flash[:danger] = "Look at what you have, Mr Admin! Why would you throw all that away?"
+        redirect_to current_user
       end
     end
 

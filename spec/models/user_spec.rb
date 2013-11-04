@@ -137,8 +137,18 @@ describe User do
     end
   end
 
+
   describe "remember token" do
     before { @user.save } 
     its(:remember_token) { should_not be_blank }
+  end
+
+  describe "admin attribute" do
+    it "should not be accessible" do
+      expect {
+        User.new(name: @user.name, email: @user.email, password: @user.password, password_confirmation: @user.password,
+                 admin: true)
+      }.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
+    end
   end
 end
