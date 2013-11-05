@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_filter :signed_in_only, only: [:edit, :update, :index, :destroy]
+  before_filter :signed_in_only,
+                only: [:edit, :update, :index, :destroy, :followed_users, :followers]
   before_filter :same_user_only, only: [:edit, :update]
   before_filter :signed_out_only, only: [:new, :create]
   before_filter :admin_user_only, only: [:destroy]
@@ -46,6 +47,21 @@ class UsersController < ApplicationController
     User.find(params[:id]).destroy
     flash[:success] = "User deleted."
     redirect_to users_url
+  end
+
+
+  def followed_users
+    @title = "Following"
+    @user = User.find(params[:id])
+    @users = @user.followed_users.paginate(page: params[:page])
+    render 'show_follow'
+  end
+
+  def followers
+    @title = "Followers"
+    @user = User.find(params[:id])
+    @users = @user.followers.paginate(page: params[:page])
+    render 'show_follow'
   end
 
   private

@@ -1,10 +1,10 @@
 <%= form_for @micropost do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-    <%= f.text_area :content, id: "new-micropost", placeholder: "Make a new micropost..." %>
+    <%= f.text_area :content, placeholder: "Make a new micropost..." %>
   </div>
   <%= f.button "Post", class: "btn btn-lg btn-primary" %>
   <span id="remaining-chars"></span>
 <% end %>
 
-<script type="text/javascript">var chars = $("#remaining-chars"); $("#new-micropost").limiter(140, chars)</script>
+<script type="text/javascript">var chars = $("#remaining-chars"); $("#micropost_content").limiter(140, chars)</script>
