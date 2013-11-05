@@ -3,5 +3,5 @@
   <span class="timestamp">
     Posted <span title="<%= micropost.created_at %>"><%= time_ago_in_words(micropost.created_at) %></span> ago
   </span>
-  <%= render 'shared/delete_item', item: micropost %>
+  <%= render 'microposts/delete_item', item: micropost %>
 </li>
