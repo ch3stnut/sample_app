@@ -25,6 +25,10 @@ textarea {
     margin-bottom: 10px;
   }
 }
+ul, ol {
+  padding-left: 0;
+  padding-right: 0;
+}
 
 /* typography */
 h1, h2, h3, h4, h5, h6 {
@@ -160,7 +164,6 @@ input {
 .users {
   list-style: none;
   margin: 0;
-  padding: 0;
   li {
     overflow: auto;
     padding: 10px 0;
@@ -175,7 +178,6 @@ input {
 .microposts {
   list-style: none;
   margin: 10px 0 0 0;
-  padding: 0;
   
   li {
     padding: 10px 0;
@@ -195,7 +197,7 @@ input {
 aside {
   textarea {
     height: 100px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 }
 

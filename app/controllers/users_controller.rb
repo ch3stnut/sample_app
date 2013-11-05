@@ -50,13 +50,7 @@ class UsersController < ApplicationController
 
   private
 
-    def signed_in_only
-      if !signed_in?
-        store_location
-        flash[:info] = "Please sign in to access this page."
-        redirect_to signin_url
-      end
-    end
+    # def signed_in_only is inside sessions_helper.rb
 
     def signed_out_only
       if signed_in?

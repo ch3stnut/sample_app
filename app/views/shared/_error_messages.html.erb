@@ -1,11 +1,11 @@
-<% if @user.errors.any? %>
+<% if object.errors.any? %>
   <div class="panel panel-danger">
     <div class="panel-heading">
-      <h4>Sorry, <%= pluralize(@user.errors.count, "thing") %> went wrong:</h3>
+      <h4>Sorry, <%= pluralize(object.errors.count, "thing") %> went wrong:</h3>
     </div>
     <div class="panel-body">
       <ul>
-      <% @user.errors.full_messages.each do |msg| %>
+      <% object.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>

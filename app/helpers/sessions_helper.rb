@@ -26,6 +26,14 @@ module SessionsHelper
     user == current_user
   end
 
+  def signed_in_only
+    if !signed_in?
+      store_location
+      flash[:info] = "Please sign in to access this page."
+      redirect_to signin_url
+    end
+  end
+
   ###
 
   def redirect_back_or_to(default)
