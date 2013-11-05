@@ -17,6 +17,23 @@ describe "User pages" do
       it { should have_content(m1.content) }
       it { should have_content(m2.content) }
       it { should have_content(user.microposts.count) }
+
+      describe "delete links" do
+        let(:another_user) { FactoryGirl.create(:user) }
+        let!(:m3) { FactoryGirl.create(:micropost, user: another_user, content: "This is a post by someone else") }
+
+        before { sign_in user }
+
+        describe "should exist for microposts by the same user" do
+          before { visit user_path(user) }
+          it { should have_link('delete', href: micropost_path(m1)) }
+        end
+
+        describe "should not exist for microposts by another user" do
+          before { visit user_path(another_user) }
+          it { should_not have_link('delete', href: micropost_path(m3)) }
+        end
+      end
     end
   end
 
