@@ -2,7 +2,7 @@ class MicropostsController < ApplicationController
   before_filter :signed_in_only, only: [:create, :destroy]
   before_filter :correct_user_only, only: [:destroy]
 
-  def index    
+  def index
   end
 
   def create
@@ -11,7 +11,7 @@ class MicropostsController < ApplicationController
       flash[:success] = "Micropost created!"
       redirect_to root_url
     else
-      @feed_items = []
+      @feed_items = current_user.feed.paginate(page: params[:page])
       render 'static_pages/home'
     end
   end
